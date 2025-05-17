@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monument Valley - Boutique</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+    header {
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    header img {
+      height: 60px;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    .hero {
+      background-color: #f1e8e0;
+      text-align: center;
+      padding: 50px 20px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      color: #b0413e;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px;
+    }
+    .product {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 250px;
+      text-align: center;
+      padding: 20px;
+    }
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .product h2 {
+      font-size: 20px;
+      margin: 10px 0 5px;
+    }
+    .product p {
+      font-size: 16px;
+      color: #666;
+    }
+    .product button {
+      background-color: #b0413e;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .product button:hover {
+      background-color: #932d2a;
+    }
+    #cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: white;
+      padding: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      border-radius: 10px;
+    }
+    footer {
+      background-color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #888;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/mnt/data/A_logo_design_for_\"Monument_Valley\"_is_set_against.png" alt="Monument Valley Logo">
+    <nav>
+      <a href="#">Accueil</a>
+      <a href="#">Homme</a>
+      <a href="#">Femme</a>
+      <a href="#">Accessoires</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Bienvenue chez Monument Valley</h1>
+    <p>Des vêtements inspirés par la nature et le style moderne</p>
+  </section>
+
+  <section class="products">
+    <div class="product">
+      <img src="https://via.placeholder.com/250x300" alt="Produit 1">
+      <h2>T-shirt Desert</h2>
+      <p>25,00 €</p>
+      <button onclick="addToCart('T-shirt Desert', 25)">Ajouter au panier</button>
+    </div>
+    <div class="product">
+      <img src="https://via.placeholder.com/250x300" alt="Produit 2">
+      <h2>Veste Canyon</h2>
+      <p>79,00 €</p>
+      <button onclick="addToCart('Veste Canyon', 79)">Ajouter au panier</button>
+    </div>
+    <div class="product">
+      <img src="https://via.placeholder.com/250x300" alt="Produit 3">
+      <h2>Casquette Soleil</h2>
+      <p>19,00 €</p>
+      <button onclick="addToCart('Casquette Soleil', 19)">Ajouter au panier</button>
+    </div>
+  </section>
+
+  <div id="cart">
+    <strong>Panier :</strong>
+    <ul id="cart-items"></ul>
+    <p><strong>Total : <span id="total">0</span> €</strong></p>
+  </div>
+
+  <footer>
+    &copy; 2025 Monument Valley. Tous droits réservés.
+  </footer>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartItems = document.getElementById('cart-items');
+      const total = document.getElementById('total');
+      cartItems.innerHTML = '';
+      let sum = 0;
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - ${item.price} €`;
+        cartItems.appendChild(li);
+        sum += item.price;
+      });
+      total.textContent = sum.toFixed(2);
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
